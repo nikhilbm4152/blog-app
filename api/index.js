@@ -5,11 +5,15 @@ const newPostRoute = require("./routes/posts");
 const newCatgyRouter = require("./routes/categories");
 const s3Router = require("./routes/s3");
 const cors = require("cors");
+const errorHandler = require("./middleware/error");
+const dotenv = require("dotenv").config();
+const cookieParser = require("cookie-parser");
 
 require("./db-connection/db-connect");
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 //registering the new user "/api/auth" it is the initial path and "/register" in the auth router is the end path
 //  ie. localhost:8000/api/auth/register
@@ -24,6 +28,8 @@ app.use(
     origin: "*",
   })
 );
+
+app.use(errorHandler);
 
 app.get("/", (req, res) => {
   res.send("hello");

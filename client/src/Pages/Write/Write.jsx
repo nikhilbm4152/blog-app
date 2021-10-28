@@ -15,20 +15,23 @@ const Write = () => {
     // And Uploding the object
 
     try {
-      const urlRes = await axios.get("/s3url");
-      const uploadUrl = urlRes.data.url;
-      const imageURL = uploadUrl.split("?")[0]; //getting the uploaded image in s3 link to store in the databasa
-      console.log(uploadUrl);
-      try {
-        await fetch(uploadUrl, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          body: file,
-        });
-      } catch (error) {
-        console.log(error);
+      let imageURL = "";
+      if (file.length !== 0) {
+        const urlRes = await axios.get("/s3url");
+        const uploadUrl = urlRes.data.url;
+        imageURL = uploadUrl.split("?")[0]; //getting the uploaded image in s3 link to store in the databasa
+        console.log(uploadUrl);
+        try {
+          await fetch(uploadUrl, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            body: file,
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
       console.log(imageURL);
       try {

@@ -1,20 +1,26 @@
 const express = require("express");
 const User = require("../models/user");
 const Post = require("../models/post");
+const errorResponse = require("../util/errorResponse");
+const { authRoute } = require("../middleware/securedRoute");
 
 const router = new express.Router();
 router.use(express.json());
 
 // New Post
-router.post("/", async (req, res) => {
-  const newPost = new Post(req.body);
+router.post("/", authRoute, async (req, res, next) => {
+  console.log(req.body);
   try {
+    const newPost = new Post(req.body);
     const savedPost = await newPost.save();
     console.log(savedPost);
 
     res.status(200).send(savedPost);
-  } catch {
-    (error) => res.status(404).send(error);
+  } catch (error) {
+    next(
+      new errorResponse("service error please try again after some time", 500)
+    );
+    // res.status(400).send(error);
   }
 });
 

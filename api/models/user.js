@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true, unique: true },
+    username: {
+      type: String,
+      required: true,
+      unique: [true, "enter diffrent id"],
+    },
     email: {
       type: String,
       required: [true, "Please enter a valid email"],
@@ -14,9 +18,8 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please add a valid password"],
       minlength: 6,
-      select: false,
+      required: [true, "Please add a valid password"],
     },
     profilepic: { type: String, default: "" },
     resetPasswordToken: String,
