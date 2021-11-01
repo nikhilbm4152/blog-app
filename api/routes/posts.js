@@ -7,6 +7,9 @@ const { authRoute } = require("../middleware/securedRoute");
 const router = new express.Router();
 router.use(express.json());
 
+// @todo
+// add secured route to only to post put and delete s that users whithout login can read the posts
+
 // New Post
 router.post("/", authRoute, async (req, res, next) => {
   console.log(req.body);
