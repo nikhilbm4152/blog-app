@@ -1,0 +1,25 @@
+.side_drawer {
+  position: absolute;
+  right: 0px;
+  height: 93vh;
+  top: 7vh;
+  background-color: aqua;
+  z-index: 100;
+  width: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  display: flex;
+  justify-content: center;
+  animation: slidebar 0.5s ease forwards;
+}
+
+@keyframes slidebar {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+    color: black;
+  }
+}

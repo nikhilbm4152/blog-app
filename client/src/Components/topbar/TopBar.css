@@ -5,56 +5,171 @@
   position: sticky;
   top: 0;
   display: flex;
+  justify-content: space-around;
   align-items: center;
   font-family: "Josefin Sans", sans-serif;
   z-index: 999;
 }
 
-.topLeft,
+.logo {
+  font-family: "Cabin Sketch", cursive;
+  color: black;
+  font-size: 2rem;
+}
+
+/* .topLeft,
 .topRight {
   flex: 3;
   display: flex;
   align-items: center;
   justify-content: center;
+} */
+
+.topRight {
+  display: flex;
+}
+.topRight ul {
+  list-style: none;
+  display: flex;
 }
 
-.topIcon {
+.topListItem + .topListItem {
+  margin-left: 0.8rem;
+}
+
+/* .topIcon {
   font-size: 1.25rem;
   margin: 10px;
   color: #444;
   cursor: pointer;
-}
+} */
 
-.topImg {
+/* .topImg {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-}
+} */
 
-.topCenter {
+/* .topCenter {
   flex: 6;
-}
+} */
 
-.topList {
+/* .topList1 {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin: 0;
   padding: 0;
   list-style: none;
-}
+} */
 
-.topListItem {
+/* .topListItem {
   margin-right: 10px;
   font-size: 18px;
   font-weight: 300;
   cursor: pointer;
-}
+} */
 
 .topSearchIcon {
   font-size: 18px;
   color: gray;
   margin-left: 10px;
   cursor: pointer;
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+.burger div {
+  width: 20px;
+  height: 2px;
+  background-color: #000;
+  margin: 3px;
+}
+
+.cross {
+  display: none;
+  cursor: pointer;
+}
+
+.cross div {
+  width: 20px;
+  height: 2px;
+  background-color: #000;
+  margin: 3px;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  .topRight {
+    display: none;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+  /* .topRight {
+    position: absolute;
+    right: 0px;
+    height: 93vh;
+    top: 7vh;
+    background-color: darksalmon;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in;
+  } */
+  .side ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50px;
+    margin-top: 1rem;
+    transition: all 0.5s ease-in;
+  }
+  .topList {
+    margin-top: 10px;
+  }
+
+  .topListItem + .topListItem {
+    margin-left: 0rem;
+    margin-top: 2rem;
+  }
+
+  .burger {
+    display: block;
+  }
+
+  .cross {
+    display: block;
+  }
+
+  .topListItem {
+    color: black;
+  }
+
+  .side {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    padding: 8rem;
+    transition: all 0.5s ease-in;
+  }
+
+  .cross .line1 {
+    transform: rotate(-45deg) translate(-5px, 2px);
+  }
+  .cross .line2 {
+    opacity: 0;
+  }
+  .cross .line3 {
+    transform: rotate(45deg) translate(-5px, -2px);
+  }
 }

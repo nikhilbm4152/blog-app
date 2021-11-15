@@ -110,7 +110,7 @@ router.put("/resetpassword/:resetToken", async (req, res, next) => {
   try {
     const user = await User.findOne({
       resetPasswordToken,
-      resetPasswordExpire: Date.now(),
+      resetPasswordExpire: { $gt: Date.now() },
     });
     if (!user) {
       next(new errorResponse("Invalid Token", 404));
