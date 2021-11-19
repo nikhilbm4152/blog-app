@@ -29,7 +29,7 @@ const TopBar = () => {
     <React.Fragment>
       {slideActive && <Backdrop onClick={closeSlideHandler} />}
       {slideActive && (
-        <SlideBar>
+        <SlideBar onClick={closeSlideHandler}>
           <NavLinks user={user} logOut={handleLogOut} active={slideActive} />
         </SlideBar>
       )}

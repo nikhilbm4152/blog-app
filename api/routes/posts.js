@@ -28,7 +28,7 @@ router.post("/", authRoute, async (req, res, next) => {
 });
 
 // UPDATE POST
-router.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const findPost = await Post.findById(req.params.id);
     if (findPost.username === req.body.username) {
@@ -47,13 +47,13 @@ router.put("/:id", async (req, res) => {
     } else {
       res.status(401).send("u r not allowed to change the post");
     }
-  } catch {
-    (error) => res.status(500).send(error);
+  } catch (error) {
+    next(new errorResponse("error while updating", 500));
   }
 });
 
 // DELETE POST
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const findPost = await Post.findById(req.params.id);
     if (findPost.username === req.body.username) {
@@ -66,39 +66,40 @@ router.delete("/:id", async (req, res) => {
     } else {
       res.status(401).send("u r not allowed to delete the post");
     }
-  } catch {
-    (error) => res.status(500).send(error);
+  } catch (error) {
+    next(new errorResponse("Post could not be deleted", 500));
   }
 });
 
 // GetPOST
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
 
     res.status(200).send(post);
-  } catch {
-    (error) => res.status(500).send(error);
+  } catch (error) {
+    next(new errorResponse(error, 500));
+    // res.status(400).send(error);
   }
 });
 
 // GET ALL POST OR CATOGORY POST OR USERNAME POST
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   const userName = req.query.user; //req.query select only the value after the ? in the requested URL ie "/?user = "john
   const catgyName = req.query.catgy;
   try {
     let posts;
     if (userName) {
-      posts = await Post.find({ username: userName });
+      posts = await Post.find({ username: userName }).sort({ createdAt: -1 });
     } else if (catgyName) {
       posts = await Post.find({ categories: { $in: [catgyName] } });
     } else {
-      posts = await Post.find();
+      posts = await Post.find().sort({ createdAt: -1 });
     }
     res.status(200).send(posts);
-  } catch {
-    (error) => res.status(500).send(error);
+  } catch (error) {
+    next(new errorResponse(error, 500));
   }
 });
 

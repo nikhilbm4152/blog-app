@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import TopBar from "./Components/topbar/TopBar";
 import { Context } from "./Context/context";
+import Categories from "./Pages/Categories/Categories";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import ProfileSetting from "./Pages/ProfileSetting/ProfileSetting";
@@ -24,6 +25,9 @@ function App() {
         <Route path="/Write">{user ? <Write /> : <Register />}</Route>
         <Route path="/ProfileSetting">
           {user ? <ProfileSetting /> : <Register />}
+        </Route>
+        <Route path="/Categories">
+          <Categories />
         </Route>
         <Route path="/Post/:Postid">
           <Single />

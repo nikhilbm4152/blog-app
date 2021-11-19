@@ -27,14 +27,23 @@
 
 .topRight {
   display: flex;
+  align-items: center;
 }
 .topRight ul {
   list-style: none;
   display: flex;
 }
+.topListItem {
+  cursor: pointer;
+  color: black;
+}
 
 .topListItem + .topListItem {
   margin-left: 0.8rem;
+}
+
+.fa-angle-down {
+  margin-left: 2px;
 }
 
 /* .topIcon {
@@ -44,13 +53,14 @@
   cursor: pointer;
 } */
 
-/* .topImg {
+.topImg {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-} */
+  margin-left: 0.8rem;
+}
 
 /* .topCenter {
   flex: 6;
@@ -143,6 +153,10 @@
     margin-top: 2rem;
   }
 
+  .topImg {
+    margin-left: 0rem;
+    margin-top: 2rem;
+  }
   .burger {
     display: block;
   }

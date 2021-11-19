@@ -11,8 +11,8 @@ const NavLinks = (props) => {
           </Link>
         </li>
         <li className="topListItem">
-          <Link className="Link" to="/About">
-            ABOUT
+          <Link className="Link" to="/Categories">
+            CATEGORIES <i class="fas fa-angle-down"></i>
           </Link>
         </li>
         <li className="topListItem">

@@ -37,7 +37,7 @@ const Home = () => {
           <Posts post={post} />
         )}
 
-        <SideBar />
+        {/* <SideBar /> */}
       </div>
     </>
   );

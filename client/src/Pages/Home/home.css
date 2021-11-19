@@ -3,9 +3,15 @@
 }
 
 .no_posts {
-  flex: 9;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
