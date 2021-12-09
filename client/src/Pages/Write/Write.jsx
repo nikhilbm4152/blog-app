@@ -77,7 +77,7 @@ const Write = () => {
             }}
           />
         </div>
-        <div className="writeFormGroup">
+        <div className="writeFormGroups">
           <textarea
             type="text"
             placeholder="Tell Your Story"
@@ -87,7 +87,7 @@ const Write = () => {
             }}
           ></textarea>
           <button className="writeSubmit" type="submit">
-            Publish
+            Publish<i className="fas fa-cloud-upload-alt write_up"></i>
           </button>
         </div>
       </form>

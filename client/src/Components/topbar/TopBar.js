@@ -1,18 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../../Context/context";
+// import { Context } from "../../Context/context";
+import blogContext from "../../Context/Context-context";
+import axios from "axios";
 import Backdrop from "./Backdrop";
 import NavLinks from "./NavLinks";
 import SlideBar from "./SlideBar";
 import "./TopBar.css";
 
 const TopBar = () => {
-  const { user, dispatch } = useContext(Context);
+  const { user, logout, category } = useContext(blogContext);
   const [slideActive, setSlideActive] = useState(false);
+
+  useEffect(() => {
+    const fetchCatgy = async () => {
+      const res = await axios.get("/catgy");
+      category(res.data.map((cat) => cat.name));
+    };
+    fetchCatgy();
+  }, []);
 
   const handleLogOut = (e) => {
     e.preventDefault();
-    dispatch({ type: "LOGOUT" });
+    // dispatch({ type: "LOGOUT" });
+    logout();
   };
 
   const slideHandler = (e) => {

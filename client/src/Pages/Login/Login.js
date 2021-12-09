@@ -1,48 +1,64 @@
-import React, { useContext, useRef } from "react";
-import { Context } from "../../Context/context";
+import React, { useContext, useRef, useState } from "react";
 import axios from "axios";
 import "./Login.css";
+import blogContext from "../../Context/Context-context";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const passwordRef = useRef();
-  const userRef = useRef();
-  const { dispatch, isFetching } = useContext(Context);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { loginStart, loginSuccess, loginFalure } = useContext(blogContext);
 
+  console.log(email);
   const loginSubmitHandler = async (event) => {
     event.preventDefault();
-    dispatch({ type: "LOGIN_START" });
+    loginStart();
     try {
       const res = await axios.post("/auth/login", {
-        email: userRef.current.value,
-        password: passwordRef.current.value,
+        email: email,
+        password: password,
       });
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      loginSuccess(res.data);
     } catch (error) {
-      dispatch({ type: "LOGIN_FAILURE" });
+      loginFalure();
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 6000);
     }
   };
 
   return (
     <div className="login">
-      <span className="loginTitle">Login</span>
       <form className="loginForm" onSubmit={loginSubmitHandler}>
-        <label>Username</label>
+        <span className="loginTitle">LOGIN</span>
+        <label>Email :</label>
         <input
-          type="text"
-          placeholder="Enter Your Username....."
-          ref={userRef}
+          type="email"
+          required
+          placeholder="Enter Your Email....."
+          onChange={(e) => setEmail(e.target.value)}
         ></input>
-        <label>Password</label>
+        <label>Password :</label>
         <input
-          type="text"
+          type="password"
+          required
           placeholder="Enter Your Password....."
-          ref={passwordRef}
+          onChange={(e) => setPassword(e.target.value)}
         ></input>
-        <button className="loginButton" type="submit" disabled={isFetching}>
+        <span>
+          Did You <Link to="/ForgotPassword">Forgot Password ?</Link>
+        </span>
+        <button className="loginButton" type="submit">
           Login
         </button>
+        <span>
+          New User <Link to="/register">REGISTER</Link>
+        </span>
+        {error && <div className="error_login">{error}</div>}
       </form>
-      <button className="loginRegisterButton">Register</button>
+      {/* <button className="loginRegisterButton">Register</button> */}
     </div>
   );
 };

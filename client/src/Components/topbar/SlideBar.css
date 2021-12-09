@@ -1,8 +1,8 @@
 .side_drawer {
   position: fixed;
   right: 0px;
-  height: 93vh;
-  top: 7vh;
+  height: 100vh;
+  top: 0vh;
   background-color: aqua;
   z-index: 100;
   width: 50%;

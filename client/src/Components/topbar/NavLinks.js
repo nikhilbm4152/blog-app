@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import blogContext from "../../Context/Context-context";
 
 const NavLinks = (props) => {
+  const { categories } = useContext(blogContext);
   return (
     <nav className={props.active ? "side" : "topRight"}>
       <ul className="topList">
@@ -10,22 +12,38 @@ const NavLinks = (props) => {
             HOME
           </Link>
         </li>
-        <li className="topListItem">
+        <li className="topListItem dropdown">
           <Link className="Link" to="/Categories">
-            CATEGORIES <i class="fas fa-angle-down"></i>
+            CATEGORIES <i className="fas fa-angle-down"></i>
           </Link>
+          <div className="dropdown_content">
+            {categories.slice(0, 3).map((c) => (
+              <Link
+                className="Link drop_link"
+                to={`/?catgy=${c}`}
+                key={Math.random()}
+              >
+                {c}
+              </Link>
+            ))}
+            <Link className="Link drop_link" to="/Categories">
+              More...
+            </Link>
+          </div>
         </li>
         <li className="topListItem">
           <Link className="Link" to="/write">
             WRITE
           </Link>
         </li>
-        <li className="topListItem" onClick={props.logOut}>
-          {props.user && "LOGOUT"}
-        </li>
+
+        {props.user && (
+          <li className="topListItem" onClick={props.logOut}>
+            LOGOUT
+          </li>
+        )}
       </ul>
-      {/* </div>
-      <div className="topRight"> */}
+
       {props.user ? (
         <img
           className="topImg"
