@@ -133,7 +133,7 @@ const createToken = (user, statusCode, res) => {
   let token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES,
   });
-  const { username } = user;
+  const { password, ...others } = user._doc;
   res
     .cookie("jwt", token, {
       httpOnly: true,
@@ -141,7 +141,7 @@ const createToken = (user, statusCode, res) => {
       secure: true,
     })
     .status(statusCode)
-    .json({ sucess: true, token, username });
+    .json({ sucess: true, token, others });
 };
 
 module.exports = router;

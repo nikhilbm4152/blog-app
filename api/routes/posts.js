@@ -28,7 +28,7 @@ router.post("/", authRoute, async (req, res, next) => {
 });
 
 // UPDATE POST
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", authRoute, async (req, res, next) => {
   try {
     const findPost = await Post.findById(req.params.id);
     if (findPost.username === req.body.username) {
@@ -53,7 +53,7 @@ router.put("/:id", async (req, res, next) => {
 });
 
 // DELETE POST
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", authRoute, async (req, res, next) => {
   try {
     const findPost = await Post.findById(req.params.id);
     if (findPost.username === req.body.username) {

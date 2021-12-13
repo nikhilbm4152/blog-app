@@ -19,6 +19,7 @@ const Login = () => {
         email: email,
         password: password,
       });
+      console.log(res);
       loginSuccess(res.data);
     } catch (error) {
       loginFalure();

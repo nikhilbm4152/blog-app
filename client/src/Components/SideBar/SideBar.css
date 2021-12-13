@@ -31,7 +31,7 @@
   margin-top: 15px;
 }
 .sideBarItems > p {
-  padding: 30px;
+  margin: 30px;
 }
 
 .sideBarList {
@@ -57,4 +57,42 @@
 .sidebarIcon {
   font-size: 16px;
   margin-left: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .sideBar {
+    flex-direction: column;
+  }
+  .sideBarItems > img {
+    margin-top: 0px;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    margin-left: 0.8rem;
+  }
+  .sas {
+    display: -webkit-box;
+    margin: 0 auto;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sideBarList {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    margin-bottom: 30px;
+  }
+
+  .sideBarList > a {
+    margin-left: 0.8rem;
+  }
+  .sideBarItems {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }

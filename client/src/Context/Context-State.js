@@ -39,6 +39,7 @@ const BlogState = (props) => {
     dispatch({ type: LOGIN_START });
   };
   const loginSuccess = (data) => {
+    console.log(data);
     dispatch({ type: LOGIN_SUCCESS, payload: data });
   };
   const loginFalure = () => {

@@ -2,17 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./SinglePost.css";
-import { Context } from "../../Context/context";
+import blogContext from "../../Context/Context-context";
 
 function SinglePost() {
   const [post, setPost] = useState({});
   const [upTitle, setUpTitle] = useState("");
   const [upDesc, setUpDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState("");
 
   const location = useLocation();
   const path = location.pathname.split("/")[2];
-  const { user } = useContext(Context);
+  const { user } = useContext(blogContext);
 
   useEffect(() => {
     const getPost = async () => {
@@ -20,6 +22,7 @@ function SinglePost() {
       setPost(resPost.data);
       setUpDesc(resPost.data.desc);
       setUpTitle(resPost.data.title);
+      setCategories(resPost.data.categories);
     };
     getPost();
   }, [path]);
@@ -28,7 +31,7 @@ function SinglePost() {
     try {
       await fetch(`/s3del/${post._id}`, { method: "delete" });
     } catch (error) {
-      console.log(error);
+      setError("not able to delete image from aws");
     }
     try {
       const res = await axios.delete(`/post/${post._id}`, {
@@ -37,12 +40,11 @@ function SinglePost() {
       window.location.replace("/");
       console.log(res);
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.error);
     }
   };
 
   const updateHandler = async () => {
-    console.log("hi");
     try {
       await axios.put(`/post/${post._id}`, {
         username: user.username,
@@ -51,7 +53,7 @@ function SinglePost() {
       });
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.error);
     }
   };
 
@@ -74,7 +76,7 @@ function SinglePost() {
         ) : (
           <h1 className="singlePostTitle">
             {upTitle}
-            {post.username === user?.username && (
+            {post.username === user?.others.username && (
               <div className="singlePostEdit">
                 <i
                   className="singlePostIcon far fa-edit"
@@ -97,6 +99,16 @@ function SinglePost() {
           <span className="singlePostDate">
             {new Date(post.updatedAt).toDateString()}
           </span>
+        </div>
+        <div className="post_catgy">
+          {categories &&
+            categories.map((c) => (
+              <span className="post_category" key={Math.random()}>
+                <i className="fas fa-tag tag_catgy">
+                  <h2 className="post_catgy_name">{c}</h2>
+                </i>
+              </span>
+            ))}
         </div>
 
         {updateMode ? (
@@ -123,6 +135,7 @@ function SinglePost() {
         ) : (
           ""
         )}
+        {error && <div className="error_post">{error}</div>}
       </div>
     </div>
   );

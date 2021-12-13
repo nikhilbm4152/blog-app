@@ -11,6 +11,7 @@ import Login from "./Pages/Login/Login";
 import ProfileSetting from "./Pages/ProfileSetting/ProfileSetting";
 import Register from "./Pages/Register/Register";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
+import Setting from "./Pages/Settings/Setting";
 import Single from "./Pages/Single/Single";
 import Write from "./Pages/Write/Write.jsx";
 
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route path="/Post/:Postid">
           <Single />
+        </Route>
+        <Route path="/Setting">
+          <Setting />
         </Route>
         <Route path="/ForgotPassword">
           <ForgotPassword />
