@@ -1,49 +1,59 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import blogContext from "../../Context/Context-context";
 import "./SideBar.css";
 
 const SideBar = () => {
-  const [catgy, setCatgy] = useState([]);
+  const [isReadMore, setIsReadMore] = useState(true);
+  const { user } = useContext(blogContext);
 
-  useEffect(() => {
-    const fetchCatgy = async () => {
-      const res = await axios.get("/catgy");
-      setCatgy(res.data);
-    };
-    fetchCatgy();
-  }, []);
+  const { profilepic, instagram, facebook, twitter, desc } = user.others;
+
+  const toggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
 
   return (
     <div className="sideBar">
+      <span className="sideBarTitle">About Author</span>
       <div className="sideBarItems">
-        <span className="sideBarTitle">About Me</span>
-        <img
-          src="https://themegoods-cdn-pzbycso8wng.stackpathdns.com/grandblog/demo/wp-content/uploads/2015/11/aboutme.jpg"
-          alt=""
-        />
-        <p>
-          Laboris sunt aute cupidatat velit magna velit ullamco dolore mollit
-          amet ex esse.Sunt eu ut nostrud id quis proident.
-        </p>
+        {profilepic ? (
+          <img src={profilepic} alt="" />
+        ) : (
+          <img
+            src="https://themegoods-cdn-pzbycso8wng.stackpathdns.com/grandblog/demo/wp-content/uploads/2015/11/aboutme.jpg"
+            alt=""
+          />
+        )}
+        {desc ? (
+          <p lassName="sas">
+            {isReadMore ? desc.slice(0, 180) : desc}
+            {desc.length > 150 && (
+              <span onClick={toggleReadMore} className="readmore">
+                {isReadMore ? "...read more" : " ...show less"}
+              </span>
+            )}
+          </p>
+        ) : (
+          <p className="sas">
+            ----Please Tell Us About You In The User Page----
+            <br />
+            <Link to="/Setting">click hear</Link>
+          </p>
+        )}
       </div>
+      <span className="sideBarTitle">FOLLOW ME</span>
       <div className="sideBarItems">
-        <span className="sideBarTitle">Catogories</span>
-        <ul className="sideBarList">
-          {catgy.map((c) => (
-            <Link to={`/?catgy=${c.name}`} className="Link" key={c._id}>
-              <li className="sideBarListItem">{c.name}</li>
-            </Link>
-          ))}
-        </ul>
-      </div>
-      <div className="sideBarItems">
-        <span className="sideBarTitle">FOLLOW US</span>
         <div className="sidebarSocial">
-          <i className="sidebarIcon fab fa-facebook-square"></i>
-          <i className="sidebarIcon fab fa-instagram-square"></i>
-          <i className="sidebarIcon fab fa-pinterest-square"></i>
-          <i className="sidebarIcon fab fa-twitter-square"></i>
+          <a href={facebook} target="_blank" className="Link">
+            <i className="sidebarIcon fab fa-facebook-square"></i>
+          </a>
+          <a href={instagram} target="_blank" className="Link">
+            <i className="sidebarIcon fab fa-instagram-square"></i>
+          </a>
+          <a href={twitter} target="_blank" className="Link">
+            <i className="sidebarIcon fab fa-twitter-square"></i>
+          </a>
         </div>
       </div>
     </div>

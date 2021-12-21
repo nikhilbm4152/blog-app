@@ -72,7 +72,7 @@ router.post("/forgotpassword", async (req, res, next) => {
     await user.save();
 
     // Create reset url to email to provided email
-    const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`;
+    const resetUrl = `http://localhost:3000/resetpassword/${resetToken}`;
 
     // HTML Message
     const message = `
@@ -110,7 +110,7 @@ router.put("/resetpassword/:resetToken", async (req, res, next) => {
   try {
     const user = await User.findOne({
       resetPasswordToken,
-      resetPasswordExpire: Date.now(),
+      resetPasswordExpire: { $gt: Date.now() },
     });
     if (!user) {
       next(new errorResponse("Invalid Token", 404));
@@ -133,7 +133,7 @@ const createToken = (user, statusCode, res) => {
   let token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES,
   });
-  const { username } = user;
+  const { password, ...others } = user._doc;
   res
     .cookie("jwt", token, {
       httpOnly: true,
@@ -141,7 +141,7 @@ const createToken = (user, statusCode, res) => {
       secure: true,
     })
     .status(statusCode)
-    .json({ sucess: true, token, username });
+    .json({ sucess: true, token, others });
 };
 
 module.exports = router;

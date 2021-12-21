@@ -1,21 +1,27 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Register.css";
 
 const Register = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-
-  // const enteredUsername = (event) => {
-  //   setUserName(event.target.value);
-  // };
-  // console.log(userName);
+  const [conformedPass, setConformedPass] = useState("");
+  const [error, setError] = useState("");
 
   const registrationForm = async (event) => {
-    setError(false);
     event.preventDefault();
+
+    if (password !== conformedPass) {
+      setPassword("");
+      setConformedPass("");
+      setTimeout(() => {
+        setError("");
+      }, 6000);
+      return setError("Passwords do not match");
+    }
+
     try {
       const res = await axios.post("/auth/register", {
         username: userName,
@@ -24,40 +30,56 @@ const Register = () => {
       });
       console.log("res");
       res.data && window.location.replace("/login");
-    } catch (err) {
-      setError(true);
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 6000);
     }
   };
 
   return (
     <div className="register">
-      <span className="registerTitle">Register</span>
       <form className="registerForm" onSubmit={registrationForm}>
-        <label>UserName</label>
+        <span className="registerTitle">Register</span>
+        <label>UserName :</label>
         <input
           type="text"
           placeholder="Enter Your UserName....."
-          // onChange={enteredUsername}
+          required
           onChange={(e) => setUserName(e.target.value)}
         ></input>
-        <label>Email</label>
+        <label>Email :</label>
         <input
           type="text"
           placeholder="Enter Your Email....."
+          required
           onChange={(e) => setEmail(e.target.value)}
         ></input>
-        <label>Password</label>
+        <label>Password :</label>
         <input
           type="text"
           placeholder="Enter Your Password....."
+          required
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
+        ></input>
+        <label>Conform Password :</label>
+        <input
+          type="text"
+          placeholder="Enter Your Password....."
+          required
+          value={conformedPass}
+          onChange={(e) => setConformedPass(e.target.value)}
         ></input>
         <button className="registerButton" type="submit">
           Register
         </button>
+        <span>
+          Existing User Please click to <Link to="/login">LOGIN</Link>
+        </span>
+        {error && <span className="reg_error">{error}</span>}
       </form>
-      <button className="registerLoginButton">Legister</button>
-      {error && <span className="reg_error">something went wrong!! </span>}
     </div>
   );
 };

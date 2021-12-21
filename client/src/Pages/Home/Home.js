@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../Components/header/Header";
 import Posts from "../../Components/Posts/Posts";
-import SideBar from "../../Components/SideBar/SideBar";
 import axios from "axios";
 import "./home.css";
 import { useLocation } from "react-router-dom";
@@ -26,20 +25,15 @@ const Home = () => {
   console.log(post);
 
   return (
-    <>
-      <Header />
-      <div className="home">
-        {post.length === 0 ? (
-          <p className="no_posts">
-            "Sorry There are no article under this Catageory or User"
-          </p>
-        ) : (
-          <Posts post={post} />
-        )}
-
-        <SideBar />
-      </div>
-    </>
+    <div className="home">
+      {post.length === 0 ? (
+        <p className="no_posts">
+          "Sorry There are no article under this Catageory or User"
+        </p>
+      ) : (
+        <Posts post={post} />
+      )}
+    </div>
   );
 };
 

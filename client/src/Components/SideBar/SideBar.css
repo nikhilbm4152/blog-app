@@ -2,7 +2,7 @@
   flex: 3;
   margin: 20px;
   padding-bottom: 30px;
-  background-color: #fdfbfd;
+  background-color: #f1eff1;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -28,10 +28,12 @@
 }
 
 .sideBarItems > img {
-  margin-top: 15px;
+  margin: 15px;
+  border-radius: 8px;
+  width: 90%;
 }
 .sideBarItems > p {
-  padding: 30px;
+  margin: 30px;
 }
 
 .sideBarList {
@@ -53,8 +55,52 @@
   align-items: center;
   justify-content: center;
 }
+.readmore {
+  color: black;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 10px;
+}
 
 .sidebarIcon {
   font-size: 16px;
   margin-left: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .sideBar {
+    flex-direction: column;
+  }
+  .sideBarItems > img {
+    margin-top: 0px;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    margin-left: 0.8rem;
+  }
+  .sas {
+    display: -webkit-box;
+    margin: 0 auto;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sideBarList {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    margin-bottom: 30px;
+  }
+
+  .sideBarList > a {
+    margin-left: 0.8rem;
+  }
+  .sideBarItems {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }

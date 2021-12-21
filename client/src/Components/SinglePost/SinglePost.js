@@ -2,17 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./SinglePost.css";
-import { Context } from "../../Context/context";
+import blogContext from "../../Context/Context-context";
+import Modal from "../../Util/model/Modal";
+import Backdrop from "../topbar/Backdrop";
 
 function SinglePost() {
   const [post, setPost] = useState({});
   const [upTitle, setUpTitle] = useState("");
   const [upDesc, setUpDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState("");
 
   const location = useLocation();
   const path = location.pathname.split("/")[2];
-  const { user } = useContext(Context);
+  const { user } = useContext(blogContext);
 
   useEffect(() => {
     const getPost = async () => {
@@ -20,6 +25,7 @@ function SinglePost() {
       setPost(resPost.data);
       setUpDesc(resPost.data.desc);
       setUpTitle(resPost.data.title);
+      setCategories(resPost.data.categories);
     };
     getPost();
   }, [path]);
@@ -28,7 +34,7 @@ function SinglePost() {
     try {
       await fetch(`/s3del/${post._id}`, { method: "delete" });
     } catch (error) {
-      console.log(error);
+      setError("not able to delete image from aws");
     }
     try {
       const res = await axios.delete(`/post/${post._id}`, {
@@ -37,12 +43,11 @@ function SinglePost() {
       window.location.replace("/");
       console.log(res);
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.error);
     }
   };
 
   const updateHandler = async () => {
-    console.log("hi");
     try {
       await axios.put(`/post/${post._id}`, {
         username: user.username,
@@ -51,80 +56,115 @@ function SinglePost() {
       });
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.error);
     }
   };
 
+  const closeModalHandler = (e) => {
+    e.preventDefault();
+    setShowModal(false);
+  };
+
   return (
-    <div className="singlePost">
-      <div className="singlePostWraper">
-        {post.photo && (
-          <img className="singlePostImg" src={post.photo} alt=""></img>
-        )}
-        {/* if loop for updating the title and desc */}
-        {updateMode ? (
-          <input
-            type="text"
-            value={upTitle}
-            className="singlePostTitleUpdate"
-            onChange={(e) => {
-              setUpTitle(e.target.value);
-            }}
-          ></input>
-        ) : (
-          <h1 className="singlePostTitle">
-            {upTitle}
-            {post.username === user?.username && (
-              <div className="singlePostEdit">
-                <i
-                  className="singlePostIcon far fa-edit"
-                  onClick={() => setUpdateMode(true)}
-                ></i>
-                <i
-                  className="singlePostIcon fas fa-trash-alt"
-                  onClick={deleteHandler}
-                ></i>
-              </div>
-            )}
-          </h1>
-        )}
-        <div className="singlePostInfo">
-          <span className="singlePostAuthor">
-            <Link to={`/?user=${post.username}`} className="Link">
-              Author : <b>{post.username}</b>
-            </Link>
-          </span>
-          <span className="singlePostDate">
-            {new Date(post.updatedAt).toDateString()}
-          </span>
+    <React.Fragment>
+      {showModal && <Backdrop onClick={closeModalHandler} />}
+      {showModal && (
+        <Modal
+          footer={
+            <React.Fragment>
+              <button onClick={closeModalHandler} className="modal_button">
+                Close
+              </button>
+              <button onClick={deleteHandler} className="modal_button">
+                Delete
+              </button>
+            </React.Fragment>
+          }
+        >
+          Are you sure u want to Delete this POST
+        </Modal>
+      )}
+      <div className="singlePost">
+        <div className="singlePostWraper">
+          {post.photo && (
+            <img className="singlePostImg" src={post.photo} alt=""></img>
+          )}
+          {/* if loop for updating the title and desc */}
+          {updateMode ? (
+            <input
+              type="text"
+              value={upTitle}
+              className="singlePostTitleUpdate"
+              onChange={(e) => {
+                setUpTitle(e.target.value);
+              }}
+            ></input>
+          ) : (
+            <h1 className="singlePostTitle">
+              {upTitle}
+              {post.username === user?.others.username && (
+                <div className="singlePostEdit">
+                  <i
+                    className="singlePostIcon far fa-edit"
+                    onClick={() => setUpdateMode(true)}
+                  ></i>
+                  <i
+                    className="singlePostIcon fas fa-trash-alt"
+                    onClick={() => setShowModal(true)}
+                  ></i>
+                </div>
+              )}
+            </h1>
+          )}
+          <div className="singlePostInfo">
+            <span className="singlePostAuthor">
+              <Link to={`/?user=${post.username}`} className="Link">
+                Author : <b>{post.username}</b>
+              </Link>
+            </span>
+            <span className="singlePostDate">
+              {new Date(post.updatedAt).toDateString()}
+            </span>
+          </div>
+          <div className="post_catgy">
+            {categories &&
+              categories.map((c) => (
+                <span className="post_category" key={Math.random()}>
+                  <i className="fas fa-tag tag_catgy">
+                    <h2 className="post_catgy_name">{c}</h2>
+                  </i>
+                </span>
+              ))}
+          </div>
+
+          {updateMode ? (
+            <textarea
+              type="text"
+              value={upDesc}
+              className="singlePostDescUpdate"
+              onChange={(e) => {
+                setUpDesc(e.target.value);
+              }}
+            />
+          ) : (
+            <p className="singlePostDesc">{upDesc}</p>
+          )}
+
+          {updateMode ? (
+            <button
+              type="button"
+              onClick={updateHandler}
+              className="updateButton"
+            >
+              Update
+            </button>
+          ) : (
+            ""
+          )}
+          {error && <div className="error_post">{error}</div>}
         </div>
-
-        {updateMode ? (
-          <textarea
-            type="text"
-            value={upDesc}
-            className="singlePostDescUpdate"
-            onChange={(e) => {
-              setUpDesc(e.target.value);
-            }}
-          />
-        ) : (
-          <p className="singlePostDesc">{upDesc}</p>
-        )}
-
-        {updateMode ? (
-          <button
-            type="button"
-            onClick={updateHandler}
-            className="updateButton"
-          >
-            Update
-          </button>
-        ) : (
-          ""
-        )}
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

@@ -5,13 +5,13 @@ const router = new express.Router();
 router.use(express.json());
 
 // SAVING NEW CATOGERY
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
     const newCatgy = new Catogories(req.body);
     const saveCatgy = await newCatgy.save();
     res.status(200).send(saveCatgy);
-  } catch {
-    (error) => res.status(404).send(error);
+  } catch (error) {
+    next(error);
   }
 });
 

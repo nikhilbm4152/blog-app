@@ -1,29 +1,38 @@
 .register {
-  height: calc(100vh - 50px);
+  width: 100%;
+  /* margin: 0 auto; */
+  /* margin-top: 50vh; */
+  height: 93vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://images.pexels.com/photos/768473/pexels-photo-768473.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
-  background-size: cover;
-}
-
-.registerTitle {
-  font-size: 50px;
 }
 
 .registerForm {
-  margin-top: 20px;
+  width: 50%;
+  max-width: 30rem;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("https://images.pexels.com/photos/768473/pexels-photo-768473.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
+  padding: 3rem;
+
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 }
 
+.registerTitle {
+  font-family: "Fuzzy Bubbles", cursive;
+  font-size: 3rem;
+  text-align: center;
+}
 .registerForm > label {
   margin: 10px 0;
+  font-size: 1.2rem;
 }
 
 .registerForm > input {
@@ -33,11 +42,14 @@
   border-radius: 10px;
   outline: none;
 }
+.registerForm > span {
+  margin-top: 10px;
+}
 
 .registerButton {
-  margin-top: 20px;
+  margin-top: 10px;
   cursor: pointer;
-  background-color: lightcoral;
+  background-color: rgb(235 97 97);
   color: white;
   padding: 10px;
   border: none;
@@ -45,18 +57,34 @@
   text-align: center;
 }
 
-.registerLoginButton {
-  position: absolute;
-  top: 60px;
-  right: 20px;
-  background-color: teal;
-  cursor: pointer;
-  padding: 10px;
-  border: none;
-  color: white;
-  border-radius: 10px;
+.registerButton:hover {
+  background-color: rgb(239 115 115);
+  box-shadow: 0px 1rem 1rem 0px #a7a4a4;
 }
+.registerButton:disabled {
+  cursor: not-allowed;
+  background-color: gray;
+}
+
 .reg_error {
-  color: red;
-  margin-top: 10px;
+  text-align: center;
+  margin-top: 0.6rem;
+  background: crimson;
+  font-size: 1.3rem;
+  color: whitesmoke;
+}
+@media screen and (max-width: 768px) {
+  .registerForm {
+    width: 80%;
+    padding: 2rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .registerForm {
+    width: 90%;
+    padding: 1.2rem;
+  }
+  .registerTitle {
+    font-size: 2.2rem;
+  }
 }

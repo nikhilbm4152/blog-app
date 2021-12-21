@@ -1,0 +1,161 @@
+.settings {
+  display: flex;
+}
+
+.settingsWrapper {
+  flex: 9;
+  padding: 20px;
+}
+
+.settingsTitle {
+  font-family: "Fuzzy Bubbles", cursive;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.settingsUpdateTitle {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: rgb(68, 45, 45);
+}
+
+.settingsDeleteTitle {
+  color: red;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.settingsPP {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.settingsPP > img {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 20px;
+  object-fit: cover;
+  margin-left: 0.8rem;
+}
+
+.settingsPPIcon {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: lightcoral;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.settingsPP > label {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.settingsPP > input {
+  color: gray;
+  margin: 0.8rem 0.3rem;
+  width: 10rem;
+  border: none;
+  font-size: 1.1rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.settingsPP > input:focus {
+  outline-style: none;
+}
+
+.settings_desc {
+  width: 70vw;
+  height: 52vh;
+  font-family: inherit;
+  font-size: 20px;
+  background: #f0eef05e;
+  margin: 0 auto;
+  border: none;
+}
+
+.settings_desc::placeholder {
+  padding: 10px;
+}
+.settingsForm > label {
+  margin-bottom: 0.6rem;
+}
+.socialLink {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2rem;
+}
+
+.settingsPP2 {
+  display: flex;
+  align-items: center;
+  margin-left: 2.5rem;
+}
+
+.settingsPP2 > label {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.settingsPP2 > input {
+  color: gray;
+  margin: 0.8rem 0.3rem;
+  width: 10rem;
+  border: none;
+  font-size: 1.1rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.settingsPP2 > input:focus {
+  outline-style: none;
+}
+.settingsPP2 > input::placeholder {
+  font-size: 12px;
+}
+
+.settingsSubmit {
+  width: 150px;
+  align-self: center;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: teal;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.error_setting {
+  text-align: center;
+  margin-top: 0.6rem;
+  background: crimson;
+  font-size: 1.3rem;
+  color: whitesmoke;
+  padding: 5px;
+}
+
+@media screen and (max-width: 320px) {
+  .settingsPP {
+    flex-wrap: wrap;
+  }
+  .settingsPP2 {
+    flex-wrap: wrap;
+  }
+}

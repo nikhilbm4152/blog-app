@@ -5,25 +5,61 @@
   position: sticky;
   top: 0;
   display: flex;
+  justify-content: space-around;
   align-items: center;
   font-family: "Josefin Sans", sans-serif;
   z-index: 999;
 }
 
-.topLeft,
+.logo {
+  font-family: "Cabin Sketch", cursive;
+  color: black;
+  font-size: 2rem;
+}
+
+/* .topLeft,
 .topRight {
   flex: 3;
   display: flex;
   align-items: center;
   justify-content: center;
+} */
+
+.topRight {
+  display: flex;
+  align-items: center;
+}
+.topRight ul {
+  list-style: none;
+  display: flex;
+}
+.topListItem {
+  cursor: pointer;
+  color: black;
+  padding: 10px;
+  text-align: center;
 }
 
-.topIcon {
+.topListItem:hover {
+  background-color: #f9f9f9;
+  border-radius: 2.5rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* .topListItem + .topListItem {
+  margin-left: 1.2rem;
+} */
+
+.fa-angle-down {
+  margin-left: 2px;
+}
+
+/* .topIcon {
   font-size: 1.25rem;
   margin: 10px;
   color: #444;
   cursor: pointer;
-}
+} */
 
 .topImg {
   width: 2.5rem;
@@ -31,30 +67,205 @@
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
+  margin-left: 0.8rem;
 }
 
-.topCenter {
+/* .topCenter {
   flex: 6;
-}
+} */
 
-.topList {
+/* .topList1 {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin: 0;
   padding: 0;
   list-style: none;
-}
+} */
 
-.topListItem {
+/* .topListItem {
   margin-right: 10px;
   font-size: 18px;
   font-weight: 300;
   cursor: pointer;
-}
+} */
 
 .topSearchIcon {
   font-size: 18px;
   color: gray;
   margin-left: 10px;
   cursor: pointer;
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+.burger div {
+  width: 20px;
+  height: 2px;
+  background-color: #000;
+  margin: 3px;
+}
+
+.cross {
+  display: none;
+  cursor: pointer;
+}
+
+.cross div {
+  width: 20px;
+  height: 2px;
+  background-color: #000;
+  margin: 3px;
+}
+
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 7rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  z-index: 1;
+}
+
+.dropdown_content:hover {
+  background-color: #f1f1f1;
+  transition: all 0.2s;
+}
+.dropdown:hover .dropdown_content {
+  display: block;
+  transition: all 0.5s;
+}
+.drop_link {
+  padding: 1rem;
+}
+
+.search {
+  position: fixed;
+  display: flex;
+  top: 3.3rem;
+  height: 4vh;
+  width: 100%;
+  z-index: 100;
+  justify-content: right;
+}
+/* .search > form {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 4px;
+} */
+.search_input {
+  /* position: absolute; */
+  border: none;
+  /* right: 4px; */
+  width: 30%;
+  box-shadow: 0px 0px 7px 4px #56647347;
+  height: 100%;
+  font-size: 1rem;
+}
+.search_button {
+  border: none;
+  width: 8%;
+  box-shadow: 5px 0px 7px 4px #56647347;
+  cursor: pointer;
+  align-items: center;
+  background: rgb(189 185 185);
+}
+.search_button1 {
+  padding: 7px;
+}
+.seArrow {
+  margin: 0 auto;
+}
+
+.search_input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  .topRight {
+    display: none;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+  /* .topRight {
+    position: absolute;
+    right: 0px;
+    height: 93vh;
+    top: 7vh;
+    background-color: darksalmon;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in;
+  } */
+  .side ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50px;
+    margin-top: 1rem;
+    transition: all 0.5s ease-in;
+  }
+  .topList {
+    margin-top: 10px;
+  }
+
+  .topListItem + .topListItem {
+    margin-left: 0rem;
+    margin-top: 2rem;
+  }
+
+  .topImg {
+    margin-left: 0rem;
+    margin-top: 2rem;
+  }
+  .burger {
+    display: block;
+  }
+
+  .cross {
+    display: block;
+  }
+
+  .topListItem {
+    color: black;
+  }
+
+  .side {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem;
+    transition: all 0.5s ease-in;
+  }
+
+  .cross .line1 {
+    transform: rotate(-45deg) translate(-5px, 2px);
+  }
+  .cross .line2 {
+    opacity: 0;
+  }
+  .cross .line3 {
+    transform: rotate(45deg) translate(-5px, -2px);
+  }
+  .search_input {
+    width: 45%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .search_input {
+    width: 65%;
+  }
 }
