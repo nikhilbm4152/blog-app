@@ -23,8 +23,12 @@ const UserSchema = new mongoose.Schema(
       minlength: [6, "Please enter PASSWORD with atleast 6 characters"],
       required: [true, "Please add a valid password"],
     },
-    desc: { type: String, maxlength: 200 },
+    desc: { type: String, maxlength: [200, "Not More Than 200 LETTERS"] },
     profilepic: { type: String, default: "" },
+    twitter: { type: String, default: "" },
+    facebook: { type: String, default: "" },
+    instagram: { type: String, default: "" },
+
     resetPasswordToken: String,
     resetPasswordExpire: { type: Date, default: Date.now },
   },

@@ -4,6 +4,7 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   CATEGORIES,
+  UPDATE_USER,
 } from "./Context-Action";
 
 const constextReducer = (state, action) => {
@@ -36,6 +37,11 @@ const constextReducer = (state, action) => {
         user: null,
         isFetching: false,
         error: false,
+      };
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
 
     case CATEGORIES:

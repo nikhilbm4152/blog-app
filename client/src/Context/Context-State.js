@@ -7,6 +7,7 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   CATEGORIES,
+  UPDATE_USER,
 } from "./Context-Action";
 import axios from "axios";
 
@@ -52,6 +53,10 @@ const BlogState = (props) => {
     dispatch({ type: CATEGORIES, payload: catgy });
     // dispatch({ type: CATEGORIES });
   };
+  const updateUser = (data) => {
+    console.log(data);
+    dispatch({ type: UPDATE_USER, payload: data });
+  };
 
   console.log(state.categories);
 
@@ -65,6 +70,7 @@ const BlogState = (props) => {
         loginFalure,
         logout,
         category,
+        updateUser,
       }}
     >
       {props.children}

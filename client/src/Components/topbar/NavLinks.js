@@ -7,11 +7,9 @@ const NavLinks = (props) => {
   return (
     <nav className={props.active ? "side" : "topRight"}>
       <ul className="topList">
-        <li className="topListItem">
-          <Link className="Link" to="/">
-            HOME
-          </Link>
-        </li>
+        <Link className="Link" to="/">
+          <li className="topListItem">HOME</li>
+        </Link>
         <li className="topListItem dropdown">
           <Link className="Link" to="/Categories">
             CATEGORIES <i className="fas fa-angle-down"></i>
@@ -31,11 +29,9 @@ const NavLinks = (props) => {
             </Link>
           </div>
         </li>
-        <li className="topListItem">
-          <Link className="Link" to="/write">
-            WRITE
-          </Link>
-        </li>
+        <Link className="Link" to="/write">
+          <li className="topListItem">WRITE</li>
+        </Link>
 
         {props.user && (
           <li className="topListItem" onClick={props.logOut}>
@@ -54,18 +50,15 @@ const NavLinks = (props) => {
         </Link>
       ) : (
         <ul className="topList">
-          <li className="topListItem">
-            <Link className="Link" to="/Login">
-              LOGIN
-            </Link>
-          </li>
-          <li className="topListItem">
-            <Link className="Link" to="/Register">
-              REGISTER
-            </Link>
-          </li>
+          <Link className="Link" to="/Login">
+            <li className="topListItem">LOGIN</li>
+          </Link>
+          <Link className="Link" to="/Register">
+            <li className="topListItem">REGISTER</li>
+          </Link>
         </ul>
       )}
+      <i className=" topSearchIcon fas fa-search" onClick={props.onClick}></i>
     </nav>
   );
 };

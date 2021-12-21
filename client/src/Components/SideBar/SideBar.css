@@ -2,7 +2,7 @@
   flex: 3;
   margin: 20px;
   padding-bottom: 30px;
-  background-color: #fdfbfd;
+  background-color: #f1eff1;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,9 @@
 }
 
 .sideBarItems > img {
-  margin-top: 15px;
+  margin: 15px;
+  border-radius: 8px;
+  width: 90%;
 }
 .sideBarItems > p {
   margin: 30px;
@@ -52,6 +54,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.readmore {
+  color: black;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 10px;
 }
 
 .sidebarIcon {

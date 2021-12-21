@@ -10,7 +10,9 @@ import "./TopBar.css";
 
 const TopBar = () => {
   const { user, logout, category } = useContext(blogContext);
+  const [searchInp, setSearchInp] = useState("");
   const [slideActive, setSlideActive] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
 
   useEffect(() => {
     const fetchCatgy = async () => {
@@ -35,13 +37,26 @@ const TopBar = () => {
     e.preventDefault();
     setSlideActive(false);
   };
+  const serachHandler = (e) => {
+    e.preventDefault();
+    setSearchActive(true);
+  };
+  const searchSubmitHandler = (e) => {
+    e.preventDefault();
+    setSearchActive(false);
+  };
 
   return (
     <React.Fragment>
       {slideActive && <Backdrop onClick={closeSlideHandler} />}
       {slideActive && (
         <SlideBar onClick={closeSlideHandler}>
-          <NavLinks user={user} logOut={handleLogOut} active={slideActive} />
+          <NavLinks
+            user={user}
+            logOut={handleLogOut}
+            active={slideActive}
+            onClick={serachHandler}
+          />
         </SlideBar>
       )}
 
@@ -52,8 +67,11 @@ const TopBar = () => {
           </Link>
         </div>
         <div className="topRight">
-          <NavLinks user={user} logOut={handleLogOut} />
-          <i className=" topSearchIcon fas fa-search"></i>
+          <NavLinks user={user} logOut={handleLogOut} onClick={serachHandler} />
+          {/* <i
+            className=" topSearchIcon fas fa-search"
+            onClick={serachHandler}
+          ></i> */}
         </div>
 
         {!slideActive ? (
@@ -70,6 +88,24 @@ const TopBar = () => {
           </div>
         )}
       </div>
+      {searchActive && (
+        <div className="search">
+          {/* <form> */}
+          <input
+            type="search"
+            className="search_input"
+            onChange={(e) => setSearchInp(e.target.value)}
+          ></input>
+          <div className="search_button" onClick={searchSubmitHandler}>
+            <Link to={`/?search=${searchInp}`} className="Link search_button1">
+              {/* <button type="submit" >
+              </button> */}
+              <i class="fas fa-long-arrow-alt-right seArrow"></i>
+            </Link>
+          </div>
+          {/* </form> */}
+        </div>
+      )}
     </React.Fragment>
   );
 };

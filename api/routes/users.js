@@ -1,19 +1,15 @@
 const express = require("express");
 const User = require("../models/user");
 const Post = require("../models/post");
-const bcrypt = require("bcrypt");
+const errorResponse = require("../util/errorResponse");
+const { authRoute } = require("../middleware/securedRoute");
 
 const router = new express.Router();
 router.use(express.json());
 
 // UPDATE-USER
-router.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res, next) => {
   if (req.body.userId === req.params.id) {
-    //   if the request body contains password i am directly hassing the passw and direclty sending it to mongo db
-    if (req.body.password) {
-      const salt = await bcrypt.genSalt(10);
-      req.body.password = await bcrypt.hash(req.body.password, salt);
-    }
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
@@ -22,43 +18,43 @@ router.put("/:id", async (req, res) => {
         },
         { new: true } //this is to create new document ie updated one
       );
-      res.status(200).send(updatedUser);
-    } catch {
-      (error) => res.status(500).send(error);
+      console.log(updatedUser);
+      const { password, ...others } = updatedUser._doc;
+      console.log(others);
+      res.status(200).json({ sucess: true, others });
+    } catch (error) {
+      console.log(error);
+      next(error);
     }
   } else {
-    res.status(401).send("You Can Update Only Your Account");
+    return next(new errorResponse("Not Authorised", 401));
   }
 });
 
 // Delete User
 
-router.delete("/:id", async (req, res) => {
-  if (req.body.userId === req.params.id) {
+router.delete("/:id", authRoute, async (req, res, next) => {
+  try {
+    const postUser = await User.findById(req.params.id);
     try {
-      const postUser = await User.findById(req.params.id);
-      try {
-        await Post.deleteMany({ username: postUser.username });
-        await User.findByIdAndDelete(req.params.id);
-        res.status(200).send("the user is deleated");
-      } catch {
-        (error) => res.status(401).send(error);
-      }
+      await Post.deleteMany({ username: postUser.username });
+      await User.findByIdAndDelete(req.params.id);
+      res.status(200).send("the user is deleated");
     } catch {
-      (error) => res.status(401).send("user not found");
+      (error) => res.status(401).send(error);
     }
-  } else {
-    res.status(401).send("You Can't delete this user");
+  } catch (error) {
+    next(new errorResponse("user not found", 401));
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
     res.status(200).send(others);
-  } catch {
-    (error) => res.status(500).send(error);
+  } catch (error) {
+    next(error);
   }
 });
 

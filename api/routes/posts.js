@@ -56,15 +56,11 @@ router.put("/:id", authRoute, async (req, res, next) => {
 router.delete("/:id", authRoute, async (req, res, next) => {
   try {
     const findPost = await Post.findById(req.params.id);
-    if (findPost.username === req.body.username) {
-      try {
-        await Post.findByIdAndDelete(req.params.id);
-        res.status(200).send("post is deleated");
-      } catch {
-        (error) => res.status(500).send(error);
-      }
-    } else {
-      res.status(401).send("u r not allowed to delete the post");
+    try {
+      await Post.findByIdAndDelete(req.params.id);
+      res.status(200).send("post is deleated");
+    } catch {
+      (error) => res.status(500).send(error);
     }
   } catch (error) {
     next(new errorResponse("Post could not be deleted", 500));
@@ -88,15 +84,21 @@ router.get("/:id", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   const userName = req.query.user; //req.query select only the value after the ? in the requested URL ie "/?user = "john
   const catgyName = req.query.catgy;
+  const searchQuery = req.query.search;
   try {
     let posts;
     if (userName) {
       posts = await Post.find({ username: userName }).sort({ createdAt: -1 });
     } else if (catgyName) {
       posts = await Post.find({ categories: { $in: [catgyName] } });
+    } else if (searchQuery) {
+      posts = await Post.find({
+        title: { $regex: searchQuery, $options: "i" },
+      });
     } else {
       posts = await Post.find().sort({ createdAt: -1 });
     }
+    console.log(posts);
     res.status(200).send(posts);
   } catch (error) {
     next(new errorResponse(error, 500));

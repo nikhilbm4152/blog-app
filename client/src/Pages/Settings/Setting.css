@@ -8,6 +8,8 @@
 }
 
 .settingsTitle {
+  font-family: "Fuzzy Bubbles", cursive;
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,7 +18,7 @@
 .settingsUpdateTitle {
   font-size: 30px;
   margin-bottom: 20px;
-  color: lightcoral;
+  color: rgb(68, 45, 45);
 }
 
 .settingsDeleteTitle {
@@ -37,10 +39,11 @@
 }
 
 .settingsPP > img {
-  width: 70px;
-  height: 70px;
+  width: 5.5rem;
+  height: 5.5rem;
   border-radius: 20px;
   object-fit: cover;
+  margin-left: 0.8rem;
 }
 
 .settingsPPIcon {
@@ -56,17 +59,76 @@
   cursor: pointer;
 }
 
-.settingsForm > label {
-  font-size: 20px;
-  margin-top: 20px;
+.settingsPP > label {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
 }
 
-.settingsForm > input {
+.settingsPP > input {
   color: gray;
-  margin: 10px 0;
-  height: 30px;
+  margin: 0.8rem 0.3rem;
+  width: 10rem;
   border: none;
+  font-size: 1.1rem;
   border-bottom: 1px solid lightgray;
+}
+
+.settingsPP > input:focus {
+  outline-style: none;
+}
+
+.settings_desc {
+  width: 70vw;
+  height: 52vh;
+  font-family: inherit;
+  font-size: 20px;
+  background: #f0eef05e;
+  margin: 0 auto;
+  border: none;
+}
+
+.settings_desc::placeholder {
+  padding: 10px;
+}
+.settingsForm > label {
+  margin-bottom: 0.6rem;
+}
+.socialLink {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2rem;
+}
+
+.settingsPP2 {
+  display: flex;
+  align-items: center;
+  margin-left: 2.5rem;
+}
+
+.settingsPP2 > label {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.settingsPP2 > input {
+  color: gray;
+  margin: 0.8rem 0.3rem;
+  width: 10rem;
+  border: none;
+  font-size: 1.1rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.settingsPP2 > input:focus {
+  outline-style: none;
+}
+.settingsPP2 > input::placeholder {
+  font-size: 12px;
 }
 
 .settingsSubmit {
@@ -79,4 +141,21 @@
   padding: 10px;
   margin-top: 20px;
   cursor: pointer;
+}
+.error_setting {
+  text-align: center;
+  margin-top: 0.6rem;
+  background: crimson;
+  font-size: 1.3rem;
+  color: whitesmoke;
+  padding: 5px;
+}
+
+@media screen and (max-width: 320px) {
+  .settingsPP {
+    flex-wrap: wrap;
+  }
+  .settingsPP2 {
+    flex-wrap: wrap;
+  }
 }
