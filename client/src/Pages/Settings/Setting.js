@@ -18,6 +18,7 @@ const Setting = () => {
   const [error, setError] = useState();
   const [showModal, setShowModal] = useState(false);
   const { user, updateUser } = useContext(blogContext);
+
   useEffect(() => {
     setEmail(user.others.email);
     setUsername(user.others.username);
@@ -26,7 +27,7 @@ const Setting = () => {
     setFacebook(user.others.facebook);
     setInstagram(user.others.instagram);
     setTwitter(user.others.twitter);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const settingHandler = async (e) => {
     e.preventDefault();

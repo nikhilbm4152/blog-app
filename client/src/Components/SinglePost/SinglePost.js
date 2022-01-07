@@ -14,10 +14,11 @@ function SinglePost() {
   const [categories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setloading] = useState(false);
 
   const location = useLocation();
   const path = location.pathname.split("/")[2];
-  const { user } = useContext(blogContext);
+  const { user, postUserName } = useContext(blogContext);
 
   useEffect(() => {
     const getPost = async () => {
@@ -26,9 +27,10 @@ function SinglePost() {
       setUpDesc(resPost.data.desc);
       setUpTitle(resPost.data.title);
       setCategories(resPost.data.categories);
+      postUserName(resPost.data.username);
     };
     getPost();
-  }, [path]);
+  }, [path]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const deleteHandler = async () => {
     try {
@@ -43,20 +45,23 @@ function SinglePost() {
       window.location.replace("/");
       console.log(res);
     } catch (error) {
-      setError(error.response.data.error);
+      setError(error.response.data);
     }
   };
 
   const updateHandler = async () => {
+    setloading(true);
     try {
       await axios.put(`/post/${post._id}`, {
-        username: user.username,
+        username: user.others.username,
         title: upTitle,
         desc: upDesc,
       });
+      setloading(false);
       window.location.reload();
     } catch (error) {
-      setError(error.response.data.error);
+      console.log(error.response.data);
+      setError(error.response.data);
     }
   };
 
@@ -155,6 +160,7 @@ function SinglePost() {
               type="button"
               onClick={updateHandler}
               className="updateButton"
+              disabled={loading}
             >
               Update
             </button>

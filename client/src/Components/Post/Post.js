@@ -12,7 +12,9 @@ const Post = (props) => {
         <div className="postCatagory">
           {props.posts.categories.map((cat) => (
             <span className="postCat" key={Math.random()}>
-              {cat}
+              <Link to={`/?catgy=${cat}`} className="Link">
+                {cat}
+              </Link>
             </span>
           ))}
         </div>

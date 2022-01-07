@@ -14,13 +14,13 @@ router.get("/s3url", async (req, res) => {
 });
 
 router.delete("/s3del/:id", async (req, res) => {
-  // const findPost = await Post.findById(req.params.id);
-  // if (findPost.photo !== "") {
-  // let key = findPost.photo.split("/")[3];
-  // console.log(key);
-  // await s3Delete(key);
-  await s3Delete(req.params.id);
-  // }
+  const findPost = await Post.findById(req.params.id);
+  if (findPost.photo !== "") {
+    let key = findPost.photo.split("/")[3];
+    console.log(key);
+    await s3Delete(key);
+  }
+  // await s3Delete(req.params.id);
   res.send("object deleted ");
 });
 

@@ -58,4 +58,15 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.get("/", async (req, res, next) => {
+  try {
+    const user = await User.find({ username: req.query.username });
+    const { password, ...others } = user;
+    // console.log(user);
+    res.status(200).send(others);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

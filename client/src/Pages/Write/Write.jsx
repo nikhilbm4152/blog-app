@@ -10,6 +10,7 @@ const Write = () => {
   const [catgy, setCatgy] = useState([]);
   const [active, setActive] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setloading] = useState(false);
 
   const { user, categories } = useContext(blogContext);
 
@@ -27,6 +28,8 @@ const Write = () => {
 
   const handleDescSubmit = async (e) => {
     e.preventDefault();
+    setloading(true);
+
     // Connecting to S3 bucket using the pre-signed URL from the Backend
     // And Uploding the object
 
@@ -63,6 +66,7 @@ const Write = () => {
           setError(error.response.data.error);
         }
       } else setError("Title and Discription Should not be EMPTY");
+      setloading(false);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -139,7 +143,7 @@ const Write = () => {
             </div>
           </div>
           {error && <div className="error_write">{error}</div>}
-          <button className="writeSubmit" type="submit">
+          <button className="writeSubmit" type="submit" disabled={loading}>
             Publish<i className="fas fa-cloud-upload-alt write_up"></i>
           </button>
         </div>

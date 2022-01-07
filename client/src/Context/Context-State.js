@@ -8,8 +8,8 @@ import {
   LOGOUT,
   CATEGORIES,
   UPDATE_USER,
+  POST_USERNAME,
 } from "./Context-Action";
-import axios from "axios";
 
 // const Context = blogContext;
 
@@ -19,17 +19,10 @@ const BlogState = (props) => {
     isFetching: false,
     error: false,
     categories: [],
+    postUser: "",
   };
 
   const [state, dispatch] = useReducer(constextReducer, initialState);
-
-  // useEffect(() => {
-  //   const fetchCatgy = async () => {
-  //     const res = await axios.get("/catgy");
-  //     category(res.data.map((cat) => cat.name));
-  //   };
-  //   fetchCatgy();
-  // }, []);
 
   //setting up the user
   useEffect(() => {
@@ -54,23 +47,25 @@ const BlogState = (props) => {
     // dispatch({ type: CATEGORIES });
   };
   const updateUser = (data) => {
-    console.log(data);
     dispatch({ type: UPDATE_USER, payload: data });
   };
-
-  console.log(state.categories);
+  const postUserName = (data) => {
+    dispatch({ type: POST_USERNAME, payload: data });
+  };
 
   return (
     <blogContext.Provider
       value={{
         user: state.user,
         categories: state.categories,
+        postUser: state.postUser,
         loginStart,
         loginSuccess,
         loginFalure,
         logout,
         category,
         updateUser,
+        postUserName,
       }}
     >
       {props.children}

@@ -5,6 +5,7 @@ import {
   LOGOUT,
   CATEGORIES,
   UPDATE_USER,
+  POST_USERNAME,
 } from "./Context-Action";
 
 const constextReducer = (state, action) => {
@@ -48,6 +49,11 @@ const constextReducer = (state, action) => {
       return {
         ...state,
         categories: action.payload,
+      };
+    case POST_USERNAME:
+      return {
+        ...state,
+        postUser: action.payload,
       };
 
     default:

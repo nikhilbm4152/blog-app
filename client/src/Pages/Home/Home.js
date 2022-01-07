@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../Components/header/Header";
 import Posts from "../../Components/Posts/Posts";
 import axios from "axios";
 import "./home.css";

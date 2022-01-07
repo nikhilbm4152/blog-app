@@ -28,6 +28,7 @@
   margin-right: 10px;
   margin-left: 10px; */
   cursor: pointer;
+  display: flex;
 }
 .postCat {
   margin: 10px;

@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
   //     "driver": true,
   //     "name": "MongoError",
   //     "index": 0,
-  //     "code": 11000, error code which we are comparing
+  //     "code": 11000, //error code which we are comparing
   //     "keyPattern": {
   //         "username": 1
   //     },
@@ -19,7 +19,7 @@ const errorHandler = (err, req, res, next) => {
   //     }
   // }
   if (err.code === 11000) {
-    const message = `Duplicate Field value entered`;
+    const message = `Enter diffrent User Name / Duplicate Field value entered`;
     error = new ErrorResponse(message, 400);
   }
 

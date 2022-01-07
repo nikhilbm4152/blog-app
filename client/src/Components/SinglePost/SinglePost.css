@@ -83,6 +83,7 @@
   color: #666;
   font-size: 18px;
   line-height: 25px;
+  white-space: pre-wrap;
   word-break: break-word;
 }
 
@@ -101,6 +102,10 @@
   cursor: pointer;
   align-self: center;
   margin-top: 20px;
+}
+.updateButton:disabled {
+  background-color: gray;
+  cursor: not-allowed;
 }
 .post_catgy {
   display: flex;

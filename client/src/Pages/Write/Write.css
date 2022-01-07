@@ -84,6 +84,10 @@
   display: flex;
   align-items: center;
 }
+.writeSubmit:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
 
 .write_up {
   margin-left: 0.8rem;

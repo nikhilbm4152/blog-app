@@ -20,7 +20,7 @@ const TopBar = () => {
       category(res.data.map((cat) => cat.name));
     };
     fetchCatgy();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleLogOut = (e) => {
     e.preventDefault();

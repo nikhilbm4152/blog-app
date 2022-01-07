@@ -45,7 +45,7 @@ router.put("/:id", authRoute, async (req, res, next) => {
         (error) => res.status(500).send(error);
       }
     } else {
-      res.status(401).send("u r not allowed to change the post");
+      res.status(401).send("You are not allowed to change the post");
     }
   } catch (error) {
     next(new errorResponse("error while updating", 500));
@@ -98,7 +98,7 @@ router.get("/", async (req, res, next) => {
     } else {
       posts = await Post.find().sort({ createdAt: -1 });
     }
-    console.log(posts);
+    // console.log(posts);
     res.status(200).send(posts);
   } catch (error) {
     next(new errorResponse(error, 500));
